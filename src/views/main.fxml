@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <children>
+      <HBox prefHeight="400.0" prefWidth="1100.0" GridPane.columnIndex="1">
+         <children>
+            <Pane prefHeight="400.0" prefWidth="550.0">
+               <children>
+                  <Button layoutX="330.0" layoutY="310.0" mnemonicParsing="false" onAction="#toAddPart" text="Add" />
+                  <Label layoutX="25.0" layoutY="25.0" text="Inventory Management System">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="100.0" layoutY="125.0" prefHeight="175.0" prefWidth="400.0">
+                    <columns>
+                        <TableColumn prefWidth="60.0" text="Part ID" />
+                      <TableColumn prefWidth="75.0" text="Part Name" />
+                      <TableColumn prefWidth="100.0" text="Inventory Level" />
+                        <TableColumn minWidth="15.0" prefWidth="150.0" text="Price / Cost per Unit" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="115.0" layoutY="100.0" text="Parts">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="375.0" layoutY="310.0" mnemonicParsing="false" text="Modify" />
+                  <Button layoutX="435.0" layoutY="310.0" mnemonicParsing="false" text="Delete" />
+               </children>
+            </Pane>
+            <Pane prefHeight="400.0" prefWidth="550.0">
+               <children>
+                  <Label layoutX="55.0" layoutY="100.0" text="Products">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="45.0" layoutY="125.0" prefHeight="175.0" prefWidth="400.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+         </children></HBox>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
