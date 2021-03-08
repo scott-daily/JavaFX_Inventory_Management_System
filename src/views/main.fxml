@@ -11,9 +11,9 @@
             <Pane prefHeight="400.0" prefWidth="550.0">
                <children>
                   <Button layoutX="330.0" layoutY="310.0" mnemonicParsing="false" onAction="#toAddPart" text="Add" />
-                  <Label layoutX="25.0" layoutY="25.0" text="Inventory Management System">
+                  <Label layoutX="10.0" layoutY="10.0" text="Inventory Management System">
                      <font>
-                        <Font name="System Bold" size="17.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                   <TableView layoutX="100.0" layoutY="125.0" prefHeight="175.0" prefWidth="400.0">
@@ -29,7 +29,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button layoutX="375.0" layoutY="310.0" mnemonicParsing="false" text="Modify" />
+                  <Button layoutX="375.0" layoutY="310.0" mnemonicParsing="false" onAction="#toModifyPart" text="Modify" />
                   <Button layoutX="435.0" layoutY="310.0" mnemonicParsing="false" text="Delete" />
                </children>
             </Pane>
@@ -42,10 +42,15 @@
                   </Label>
                   <TableView layoutX="45.0" layoutY="125.0" prefHeight="175.0" prefWidth="400.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn text="Product ID" />
+                      <TableColumn prefWidth="90.0" text="Product Name" />
+                        <TableColumn prefWidth="95.0" text="Inventory Level" />
+                        <TableColumn prefWidth="120.0" text="Price / Cost per Unit" />
                     </columns>
                   </TableView>
+                  <Button layoutX="280.0" layoutY="310.0" mnemonicParsing="false" onAction="#toAddProduct" text="Add" />
+                  <Button layoutX="325.0" layoutY="310.0" mnemonicParsing="false" onAction="#toModifyProduct" text="Modify" />
+                  <Button layoutX="385.0" layoutY="310.0" mnemonicParsing="false" text="Delete" />
                </children>
             </Pane>
          </children></HBox>
