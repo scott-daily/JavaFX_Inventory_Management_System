@@ -15,8 +15,11 @@
          <font>
             <Font size="14.0" />
          </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="inOrOutTG" />
+         </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="250.0" layoutY="45.0" mnemonicParsing="false" text="Outsourced">
+      <RadioButton layoutX="250.0" layoutY="45.0" mnemonicParsing="false" text="Outsourced" toggleGroup="$inOrOutTG">
          <font>
             <Font size="14.0" />
          </font>

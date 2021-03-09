@@ -4,9 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 public class Main extends Application {
 
@@ -20,6 +18,15 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        // public InHouse(int id, String name, double price, int stock, int min, int max, int machineId)
+        InHouse bike_tire = new InHouse(1, "Bike Tire", 4.23, 3, 1, 5, 123);
+        InHouse handlebars = new InHouse(2, "Handlebars", 37.57, 5, 2, 6, 321);
+        InHouse bike_peddles = new InHouse(3, "Bike Pedals", 24.99, 13, 3, 8, 321);
+
+        Inventory.addPart(bike_tire);
+        Inventory.addPart(handlebars);
+        Inventory.addPart(bike_peddles);
+
         Application.launch(args);
     }
 }

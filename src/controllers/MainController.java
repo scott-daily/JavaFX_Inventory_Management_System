@@ -9,7 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import models.Inventory;
+import models.Part;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,19 +22,19 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     @FXML
-    private TableView<?> partTable;
+    private TableView<Part> partTable;
 
     @FXML
-    private TableColumn<?, ?> partTableID;
+    private TableColumn<Part, Integer> partTableID;
 
     @FXML
-    private TableColumn<?, ?> partTableName;
+    private TableColumn<Part, String> partTableName;
 
     @FXML
-    private TableColumn<?, ?> partTableInv;
+    private TableColumn<Part, Integer> partTableInv;
 
     @FXML
-    private TableColumn<?, ?> partTableCost;
+    private TableColumn<Part, Double> partTableCost;
 
     @FXML
     private TableView<?> productTable;
@@ -50,6 +54,13 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        partTable.setItems(Inventory.getAllParts());
+
+        partTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partTableInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partTableCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+
 
     }
 
