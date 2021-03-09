@@ -1,11 +1,13 @@
 package controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
@@ -14,6 +16,25 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ModifyPartController implements Initializable {
+
+    @FXML
+    private TextField partIDField;
+
+    @FXML
+    private TextField partNameField;
+
+    @FXML
+    private TextField partInvField;
+
+    @FXML
+    private TextField partPriceField;
+
+    @FXML
+    private TextField partMaxField;
+
+    @FXML
+    private TextField partMinField;
+
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
 

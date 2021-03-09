@@ -1,11 +1,13 @@
 package controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
@@ -14,6 +16,26 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ModifyProductController implements Initializable {
+
+    @FXML
+    private TextField productIDField;
+
+    @FXML
+    private TextField productNameField;
+
+    @FXML
+    private TextField productInvField;
+
+    @FXML
+    private TextField productPriceField;
+
+    @FXML
+    private TextField productMaxField;
+
+    @FXML
+    private TextField productMinField;
+
+
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
 

@@ -21,18 +21,18 @@
             <Font size="14.0" />
          </font>
       </RadioButton>
-      <TextField layoutX="120.0" layoutY="130.0" promptText="Auto Gen - Disabled" />
+      <TextField fx:id="partIDField" layoutX="120.0" layoutY="130.0" promptText="Auto Gen - Disabled" />
       <Label disable="true" layoutX="85.0" layoutY="132.0" text="ID">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="120.0" layoutY="170.0" />
-      <TextField layoutX="120.0" layoutY="210.0" />
-      <TextField layoutX="120.0" layoutY="250.0" />
-      <TextField layoutX="120.0" layoutY="290.0" />
+      <TextField fx:id="partNameField" layoutX="120.0" layoutY="170.0" />
+      <TextField fx:id="partInvField" layoutX="120.0" layoutY="210.0" />
+      <TextField fx:id="partPriceField" layoutX="120.0" layoutY="250.0" />
+      <TextField fx:id="partMaxField" layoutX="120.0" layoutY="290.0" />
       <TextField layoutX="120.0" layoutY="330.0" />
-      <TextField layoutX="350.0" layoutY="290.0" />
+      <TextField fx:id="partMinField" layoutX="350.0" layoutY="290.0" />
       <Button layoutX="130.0" layoutY="400.0" mnemonicParsing="false" text="Save">
          <font>
             <Font size="14.0" />
