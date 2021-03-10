@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.SplittableRandom;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -75,20 +76,34 @@ public class AddPartController implements Initializable {
         sourceText.setText("Machine ID");
     }
 
+    private ArrayList<Integer> usedIdArray = new ArrayList<>();
+
+    private int generateUniqueID() {
+        boolean isUnique = false;
+        int randomID = new SplittableRandom().nextInt(1, 1_001);
+        while (!isUnique) {
+            if (!usedIdArray.contains(randomID)) {
+                isUnique = true;
+            }
+            else {
+                randomID = new SplittableRandom().nextInt(1, 1_001);
+            }
+        }
+        return randomID;
+    }
 
     @FXML
     void onClickSavePart(ActionEvent event) {
-        int randomNum = new SplittableRandom().nextInt(1, 1_001);
+
 
         if (inHouseButton.isSelected()) {
-            Inventory.addPart(new InHouse(randomNum, partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
+            Inventory.addPart(new InHouse(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
             System.out.println("Added a new in-house part");
         }
         if (outsourcedButton.isSelected()) {
-            Inventory.addPart(new Outsourced(randomNum, partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
+            Inventory.addPart(new Outsourced(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
             System.out.println("Added a new outsourced part");
         }
-
     }
 
     @FXML
