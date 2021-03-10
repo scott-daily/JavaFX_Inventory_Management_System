@@ -84,6 +84,7 @@ public class AddPartController implements Initializable {
         while (!isUnique) {
             if (!usedIdArray.contains(randomID)) {
                 isUnique = true;
+                usedIdArray.add(randomID);
             }
             else {
                 randomID = new SplittableRandom().nextInt(1, 1_001);
@@ -94,8 +95,6 @@ public class AddPartController implements Initializable {
 
     @FXML
     void onClickSavePart(ActionEvent event) {
-
-
         if (inHouseButton.isSelected()) {
             Inventory.addPart(new InHouse(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
             System.out.println("Added a new in-house part");
