@@ -60,7 +60,7 @@ public class ModifyPartController implements Initializable {
 
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
-        Part savedPart = Inventory.getSavedPart();
+        Part savedPart = ControlData.getSavedPart();
 
         partNameField.setText(savedPart.getName());
         partIDField.setText(String.valueOf(savedPart.getId()));

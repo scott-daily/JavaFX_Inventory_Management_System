@@ -84,7 +84,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void toModifyPart(ActionEvent actionEvent) throws IOException {
-        Inventory.saveSelectedPart(partTable.getSelectionModel().getSelectedItem()); // ADDED THIS <----!!!!!!!!!
+        ControlData.saveSelectedPart(partTable.getSelectionModel().getSelectedItem()); // ADDED THIS <----!!!!!!!!!
         //System.out.println(selectedPart.getName());
 
         Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyPart.fxml"));

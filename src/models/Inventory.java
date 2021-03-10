@@ -8,8 +8,6 @@ public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts;
 
-    private static Part selectedPart;
-
     public static void addPart(Part newPart) {
         allParts.add(newPart);
     }
@@ -20,14 +18,6 @@ public class Inventory {
 
     public static ObservableList<Part> getAllParts() {
         return allParts;
-    }
-
-    public static void saveSelectedPart(Part selectedPart) {
-        Inventory.selectedPart = selectedPart;
-    }
-
-    public static Part getSavedPart() {
-        return selectedPart;
     }
 
     public static ObservableList<Product> getAllProducts() {
