@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.SplittableRandom;
+import java.util.concurrent.ThreadLocalRandom;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,8 +10,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.InHouse;
+import models.Inventory;
+import models.Outsourced;
 
 
 import java.io.IOException;
@@ -16,6 +26,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddPartController implements Initializable {
+
+    @FXML
+    private RadioButton inHouseButton;
+
+    @FXML
+    private ToggleGroup inOrOutTG;
+
+    @FXML
+    private RadioButton outsourcedButton;
 
     @FXML
     private TextField partIDField;
@@ -35,8 +54,40 @@ public class AddPartController implements Initializable {
     @FXML
     private TextField partMinField;
 
+    @FXML
+    private Label sourceText;
+
+    @FXML
+    private TextField sourceField;
+
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    @FXML
+    void setTextCompanyName(MouseEvent event) {
+        sourceText.setText("Company Name");
+    }
+
+    @FXML
+    void setTextMachineID(MouseEvent event) {
+        sourceText.setText("Machine ID");
+    }
+
+
+    @FXML
+    void onClickSavePart(ActionEvent event) {
+        int randomNum = new SplittableRandom().nextInt(1, 1_001);
+
+        if (inHouseButton.isSelected()) {
+            Inventory.addPart(new InHouse(randomNum, partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
+            System.out.println("Added a new in-house part");
+        }
+        if (outsourcedButton.isSelected()) {
+            Inventory.addPart(new Outsourced(randomNum, partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
+            System.out.println("Added a new outsourced part");
+        }
 
     }
 
@@ -49,6 +100,4 @@ public class AddPartController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
-
 }
