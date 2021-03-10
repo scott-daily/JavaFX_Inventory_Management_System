@@ -11,12 +11,15 @@
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <RadioButton layoutX="150.0" layoutY="45.0" mnemonicParsing="false" text="In-House">
+        <RadioButton fx:id="inHouseButton" layoutX="150.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#setTextMachineID" text="In-House">
             <font>
                 <Font size="14.0" />
             </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="inOrOutTG" />
+         </toggleGroup>
         </RadioButton>
-        <RadioButton layoutX="250.0" layoutY="45.0" mnemonicParsing="false" text="Outsourced">
+        <RadioButton fx:id="outsourcedButton" layoutX="250.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#setTextCompanyName" text="Outsourced" toggleGroup="$inOrOutTG">
             <font>
                 <Font size="14.0" />
             </font>
@@ -31,7 +34,7 @@
         <TextField fx:id="partInvField" layoutX="120.0" layoutY="210.0" />
         <TextField fx:id="partPriceField" layoutX="120.0" layoutY="250.0" />
         <TextField fx:id="partMaxField" layoutX="120.0" layoutY="290.0" />
-        <TextField layoutX="120.0" layoutY="330.0" />
+        <TextField fx:id="sourceField" layoutX="120.0" layoutY="330.0" />
         <TextField fx:id="partMinField" layoutX="350.0" layoutY="290.0" />
         <Button layoutX="130.0" layoutY="400.0" mnemonicParsing="false" text="Save">
             <font>
@@ -68,6 +71,6 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <Label layoutX="75.0" layoutY="332.0" text="Label" />
+        <Label fx:id="sourceLabel" layoutX="25.0" layoutY="332.0" text="Label" />
     </children>
 </AnchorPane>

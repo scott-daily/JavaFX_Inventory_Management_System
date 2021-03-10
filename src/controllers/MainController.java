@@ -60,8 +60,6 @@ public class MainController implements Initializable {
         partTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partTableInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partTableCost.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-
     }
 
     @FXML
@@ -79,17 +77,20 @@ public class MainController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/views/AddProduct.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene addPartScene = new Scene(root, 1100, 700);
-        stage.setTitle("Add Part");
+        stage.setTitle("Add Product");
         stage.setScene(addPartScene);
         stage.show();
     }
 
     @FXML
     public void toModifyPart(ActionEvent actionEvent) throws IOException {
+        Inventory.saveSelectedPart(partTable.getSelectionModel().getSelectedItem()); // ADDED THIS <----!!!!!!!!!
+        //System.out.println(selectedPart.getName());
+
         Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyPart.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene addPartScene = new Scene(root, 600, 600);
-        stage.setTitle("Add Part");
+        stage.setTitle("Modify Part");
         stage.setScene(addPartScene);
         stage.show();
     }
@@ -99,7 +100,7 @@ public class MainController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyProduct.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene addPartScene = new Scene(root, 1100, 700);
-        stage.setTitle("Add Part");
+        stage.setTitle("Modify Product");
         stage.setScene(addPartScene);
         stage.show();
     }

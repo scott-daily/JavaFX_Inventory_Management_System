@@ -69,11 +69,13 @@ public class AddPartController implements Initializable {
     @FXML
     void setTextCompanyName(MouseEvent event) {
         sourceText.setText("Company Name");
+        sourceText.setLayoutX(25);
     }
 
     @FXML
     void setTextMachineID(MouseEvent event) {
         sourceText.setText("Machine ID");
+        sourceText.setLayoutX(50);
     }
 
     private ArrayList<Integer> usedIdArray = new ArrayList<>();
@@ -81,6 +83,7 @@ public class AddPartController implements Initializable {
     private int generateUniqueID() {
         boolean isUnique = false;
         int randomID = new SplittableRandom().nextInt(1, 1_001);
+
         while (!isUnique) {
             if (!usedIdArray.contains(randomID)) {
                 isUnique = true;
@@ -94,7 +97,7 @@ public class AddPartController implements Initializable {
     }
 
     @FXML
-    void onClickSavePart(ActionEvent event) {
+    void onClickSavePart(ActionEvent actionEvent) throws IOException {
         if (inHouseButton.isSelected()) {
             Inventory.addPart(new InHouse(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
             System.out.println("Added a new in-house part");
@@ -103,6 +106,12 @@ public class AddPartController implements Initializable {
             Inventory.addPart(new Outsourced(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
             System.out.println("Added a new outsourced part");
         }
+        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1200, 500);
+        stage.setTitle("To Main");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
