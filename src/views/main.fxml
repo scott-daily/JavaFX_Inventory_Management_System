@@ -30,7 +30,7 @@
                      </font>
                   </Label>
                   <Button layoutX="375.0" layoutY="310.0" mnemonicParsing="false" onAction="#toModifyPart" text="Modify" />
-                  <Button layoutX="435.0" layoutY="310.0" mnemonicParsing="false" text="Delete" />
+                  <Button layoutX="435.0" layoutY="310.0" mnemonicParsing="false" onAction="#deleteSelectedPart" text="Delete" />
                </children>
             </Pane>
             <Pane prefHeight="400.0" prefWidth="550.0">

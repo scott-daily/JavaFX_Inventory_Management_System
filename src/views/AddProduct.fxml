@@ -14,17 +14,7 @@
             <TableColumn fx:id="partTableCost" prefWidth="140.0" text="Price / Cost per Unit" />
         </columns>
       </TableView>
-        <RadioButton layoutX="150.0" layoutY="45.0" mnemonicParsing="false" text="In-House">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </RadioButton>
-        <RadioButton layoutX="250.0" layoutY="45.0" mnemonicParsing="false" text="Outsourced">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </RadioButton>
-        <TextField fx:id="productIDField" layoutX="120.0" layoutY="130.0" promptText="Auto Gen - Disabled" />
+        <TextField fx:id="productIDField" disable="true" layoutX="120.0" layoutY="130.0" promptText="Auto Gen - Disabled" />
         <Label disable="true" layoutX="85.0" layoutY="132.0" text="ID">
             <font>
                 <Font size="14.0" />

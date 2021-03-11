@@ -18,7 +18,6 @@ import models.Inventory;
 import models.Outsourced;
 import models.Part;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
