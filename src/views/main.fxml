@@ -50,7 +50,7 @@
                   </TableView>
                   <Button layoutX="280.0" layoutY="310.0" mnemonicParsing="false" onAction="#toAddProduct" text="Add" />
                   <Button layoutX="325.0" layoutY="310.0" mnemonicParsing="false" onAction="#toModifyProduct" text="Modify" />
-                  <Button layoutX="385.0" layoutY="310.0" mnemonicParsing="false" text="Delete" />
+                  <Button layoutX="385.0" layoutY="310.0" mnemonicParsing="false" onAction="#deleteSelectedProduct" text="Delete" />
                </children>
             </Pane>
          </children></HBox>

@@ -45,7 +45,7 @@ public class Inventory {
         int index = 0;
         for (Part part : Inventory.getAllParts()) {
             if (part.getId() == partId) {
-                ControlData.setSelectedIndex(index);
+                ControlData.setSelectedPartIndex(index);
                 return part;
             } else {
                 index++;

@@ -1,11 +1,15 @@
 package controllers;
 
 import models.Part;
+import models.Product;
 
 public class ControlData {
 
     private static Part selectedPart;
-    private static int selectedIndex;
+    private static int selectedPartIndex;
+
+    private static Product selectedProduct;
+    private static int selectedProductIndex;
 
     public static void saveSelectedPart(Part selectedPart) {
         ControlData.selectedPart = selectedPart;
@@ -15,11 +19,27 @@ public class ControlData {
         return selectedPart;
     }
 
-    public static int getSelectedIndex() {
-        return selectedIndex;
+    public static int getSelectedPartIndex() {
+        return selectedPartIndex;
     }
 
-    public static void setSelectedIndex(int index) {
-        ControlData.selectedIndex = index;
+    public static void setSelectedPartIndex(int index) {
+        ControlData.selectedPartIndex = index;
+    }
+
+    public static void saveSelectedProduct(Product selectedProduct) {
+        ControlData.selectedProduct = selectedProduct;
+    }
+
+    public static Product getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public static void setSelectedProductIndex(int index) {
+        ControlData.selectedPartIndex = index;
+    }
+
+    public static int getSelectedProductIndex() {
+        return selectedProductIndex;
     }
 }
