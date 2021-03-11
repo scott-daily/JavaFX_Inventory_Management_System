@@ -58,17 +58,17 @@
             <TableColumn fx:id="productPartTableCost" prefWidth="145.0" text="Price / Cost per Unit" />
         </columns>
       </TableView>
-      <Button layoutX="930.0" layoutY="310.0" mnemonicParsing="false" text="Add">
+      <Button layoutX="930.0" layoutY="310.0" mnemonicParsing="false" onAction="#onClickAddPartToProduct" text="Add">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="850.0" layoutY="590.0" mnemonicParsing="false" text="Remove Associated Part">
+      <Button layoutX="850.0" layoutY="590.0" mnemonicParsing="false" onAction="#onClickRemovePart" text="Remove Associated Part">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="855.0" layoutY="635.0" mnemonicParsing="false" text="Save">
+      <Button layoutX="855.0" layoutY="635.0" mnemonicParsing="false" onAction="#onClickSaveProduct" text="Save">
          <font>
             <Font size="14.0" />
          </font>

@@ -21,15 +21,15 @@ public class Product {
         this.max = max;
     }
 
-    public static ObservableList<Part> getAllAssociatedParts() {
+    public ObservableList<Part> getAllAssociatedParts() {
         return associatedParts;
     }
 
-    public static void addAssociatedPart(Part part) {
+    public void addAssociatedPart(Part part) {
         associatedParts.add(part);
     }
 
-    public static void deleteAssociatedPart(Part part) {
+    public void deleteAssociatedPart(Part part) {
         associatedParts.remove(part);
     }
 
