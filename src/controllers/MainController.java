@@ -91,6 +91,7 @@ public class MainController implements Initializable {
     @FXML
     public void toModifyPart(ActionEvent actionEvent) throws IOException {
         ControlData.saveSelectedPart(partTable.getSelectionModel().getSelectedItem());
+        ControlData.setSelectedPartIndex(partTable.getSelectionModel().getSelectedIndex());
 
         Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyPart.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -103,6 +104,7 @@ public class MainController implements Initializable {
     @FXML
     public void toModifyProduct(ActionEvent actionEvent) throws IOException {
         ControlData.saveSelectedProduct(productTable.getSelectionModel().getSelectedItem());
+        ControlData.setSelectedProductIndex(productTable.getSelectionModel().getSelectedIndex());
 
         Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyProduct.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

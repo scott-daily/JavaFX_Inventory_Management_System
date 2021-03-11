@@ -53,4 +53,17 @@ public class Inventory {
         }
         return null;
     }
+
+    public static Product lookupProduct(int productId) {
+        int index = 0;
+        for (Product product : Inventory.getAllProducts()) {
+            if (product.getId() == productId) {
+                ControlData.setSelectedProductIndex(index);
+                return product;
+            } else {
+                index++;
+            }
+        }
+        return null;
+    }
 }

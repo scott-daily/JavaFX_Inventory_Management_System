@@ -36,7 +36,7 @@ public class ControlData {
     }
 
     public static void setSelectedProductIndex(int index) {
-        ControlData.selectedPartIndex = index;
+        ControlData.selectedProductIndex = index;
     }
 
     public static int getSelectedProductIndex() {

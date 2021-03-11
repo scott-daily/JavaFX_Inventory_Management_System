@@ -68,12 +68,12 @@
                 <Font size="14.0" />
             </font>
         </Button>
-        <Button layoutX="850.0" layoutY="590.0" mnemonicParsing="false" text="Remove Associated Part">
+        <Button layoutX="850.0" layoutY="590.0" mnemonicParsing="false" onAction="#onClickRemovePart" text="Remove Associated Part">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-        <Button layoutX="855.0" layoutY="635.0" mnemonicParsing="false" text="Save">
+        <Button layoutX="855.0" layoutY="635.0" mnemonicParsing="false" onAction="#onClickUpdateProduct" text="Save">
             <font>
                 <Font size="14.0" />
             </font>

@@ -97,7 +97,6 @@ public class ModifyPartController implements Initializable {
 
     @FXML
     public void onClickUpdatePart(ActionEvent actionEvent) throws IOException {
-        Part currentPart = Inventory.lookupPart(Integer.parseInt(partIDField.getText()));
         int currentIndex = ControlData.getSelectedPartIndex();
 
         if (inHouseButton.isSelected()) {

@@ -109,6 +109,25 @@ public class ModifyProductController implements Initializable {
         productPartTableCost.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
+    public void onClickRemovePart(ActionEvent actionEvent) throws IOException {
+        Product savedProduct = ControlData.getSelectedProduct();
+        Part selectedPart = productPartsTable.getSelectionModel().getSelectedItem();
+        savedProduct.deleteAssociatedPart(selectedPart);
+    }
+
+    @FXML
+    void onClickUpdateProduct(ActionEvent actionEvent) throws IOException {
+        int currentIndex = ControlData.getSelectedProductIndex();
+        Inventory.updateProduct(currentIndex, new Product(Integer.parseInt(String.valueOf(productIDField.getText())), productNameField.getText(), Double.parseDouble(productPriceField.getText()), Integer.parseInt(productInvField.getText()), Integer.parseInt(productMinField.getText()), Integer.parseInt(productMaxField.getText())));
+
+        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 1200, 500);
+        stage.setTitle("To Main");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void toMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
