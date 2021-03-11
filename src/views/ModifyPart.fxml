@@ -36,7 +36,7 @@
         <TextField fx:id="partMaxField" layoutX="120.0" layoutY="290.0" />
         <TextField fx:id="sourceField" layoutX="120.0" layoutY="330.0" />
         <TextField fx:id="partMinField" layoutX="350.0" layoutY="290.0" />
-        <Button layoutX="130.0" layoutY="400.0" mnemonicParsing="false" text="Save">
+        <Button layoutX="130.0" layoutY="400.0" mnemonicParsing="false" onAction="#onClickUpdatePart" text="Save">
             <font>
                 <Font size="14.0" />
             </font>

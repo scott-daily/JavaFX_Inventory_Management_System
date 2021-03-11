@@ -1,5 +1,6 @@
 package models;
 
+import controllers.ControlData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -41,9 +42,13 @@ public class Inventory {
     }
 
     public static Part lookupPart(int partId) {
+        int index = 0;
         for (Part part : Inventory.getAllParts()) {
             if (part.getId() == partId) {
+                ControlData.setSelectedIndex(index);
                 return part;
+            } else {
+                index++;
             }
         }
         return null;

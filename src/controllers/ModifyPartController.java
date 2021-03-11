@@ -97,16 +97,17 @@ public class ModifyPartController implements Initializable {
     }
 
     @FXML
-    /*public void onClickUpdatePart(ActionEvent actionEvent) throws IOException {
+    public void onClickUpdatePart(ActionEvent actionEvent) throws IOException {
+        Part currentPart = Inventory.lookupPart(Integer.parseInt(partIDField.getText()));
+        int currentIndex = ControlData.getSelectedIndex();
 
-        //Part p =
         if (inHouseButton.isSelected()) {
-            Inventory.addPart(new InHouse(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
-            System.out.println("Added a new in-house part");
+            Inventory.updatePart(currentIndex, new InHouse(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
+            System.out.println("Updated an in-house part.");
         }
         if (outsourcedButton.isSelected()) {
-            Inventory.addPart(new Outsourced(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
-            System.out.println("Added a new outsourced part");
+            Inventory.updatePart(currentIndex, new Outsourced(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
+            System.out.println("Updated an outsourced part.");
         }
         Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -114,7 +115,7 @@ public class ModifyPartController implements Initializable {
         stage.setTitle("To Main");
         stage.setScene(scene);
         stage.show();
-    }*/
+    }
 
     public void toMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
