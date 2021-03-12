@@ -18,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.*;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -146,20 +145,26 @@ public class AddProductController implements Initializable {
     @FXML
     void onClickSaveProduct(ActionEvent actionEvent) throws IOException {
 
-        Product newProduct = new Product(generateUniqueID(), productNameField.getText(), Double.parseDouble(productPriceField.getText()), Integer.parseInt(productInvField.getText()), Integer.parseInt(productMinField.getText()), Integer.parseInt(productMaxField.getText()));
-        for (Part part : newProductPartList) {
-            newProduct.addAssociatedPart(part);
+        try {
+            Product newProduct = new Product(generateUniqueID(), productNameField.getText(), Double.parseDouble(productPriceField.getText()), Integer.parseInt(productInvField.getText()), Integer.parseInt(productMinField.getText()), Integer.parseInt(productMaxField.getText()));
+            for (Part part : newProductPartList) {
+                newProduct.addAssociatedPart(part);
+            }
+            Inventory.addProduct(newProduct);
+
+            System.out.println("Added a new product");
+
+            Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1200, 500);
+            stage.setTitle("To Main");
+            stage.setScene(scene);
+            stage.show();
         }
-        Inventory.addProduct(newProduct);
-
-        System.out.println("Added a new product");
-
-        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1200, 500);
-        stage.setTitle("To Main");
-        stage.setScene(scene);
-        stage.show();
+        catch (NumberFormatException exception) {
+            System.out.println("Must enter proper input into fields");
+            System.out.println("Exception type: " + exception);
+        }
     }
 
     public void toMain(ActionEvent actionEvent) throws IOException {

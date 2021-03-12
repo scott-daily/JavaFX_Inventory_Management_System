@@ -97,22 +97,29 @@ public class ModifyPartController implements Initializable {
 
     @FXML
     public void onClickUpdatePart(ActionEvent actionEvent) throws IOException {
-        int currentIndex = ControlData.getSelectedPartIndex();
 
-        if (inHouseButton.isSelected()) {
-            Inventory.updatePart(currentIndex, new InHouse(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
-            System.out.println("Updated an in-house part.");
+        try {
+            int currentIndex = ControlData.getSelectedPartIndex();
+
+            if (inHouseButton.isSelected()) {
+                Inventory.updatePart(currentIndex, new InHouse(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
+                System.out.println("Updated an in-house part.");
+            }
+            if (outsourcedButton.isSelected()) {
+                Inventory.updatePart(currentIndex, new Outsourced(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
+                System.out.println("Updated an outsourced part.");
+            }
+            Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1200, 500);
+            stage.setTitle("To Main");
+            stage.setScene(scene);
+            stage.show();
         }
-        if (outsourcedButton.isSelected()) {
-            Inventory.updatePart(currentIndex, new Outsourced(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
-            System.out.println("Updated an outsourced part.");
+        catch (NumberFormatException exception ) {
+            System.out.println("Must enter proper input into fields");
+            System.out.println("Exception type: " + exception);
         }
-        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1200, 500);
-        stage.setTitle("To Main");
-        stage.setScene(scene);
-        stage.show();
     }
 
     public void toMain(ActionEvent actionEvent) throws IOException {

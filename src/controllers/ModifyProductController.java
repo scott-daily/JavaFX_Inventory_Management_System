@@ -1,7 +1,5 @@
 package controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -19,7 +17,6 @@ import javafx.stage.Stage;
 import models.Inventory;
 import models.Part;
 import models.Product;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -82,7 +79,6 @@ public class ModifyProductController implements Initializable {
     public void initialize (URL url, ResourceBundle resourceBundle) {
         Product savedProduct = ControlData.getSelectedProduct();
 
-        //allPartsTable.setItems(Inventory.getAllParts());
         partTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
         partTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partTableInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -143,15 +139,21 @@ public class ModifyProductController implements Initializable {
 
     @FXML
     void onClickUpdateProduct(ActionEvent actionEvent) throws IOException {
-        int currentIndex = ControlData.getSelectedProductIndex();
-        Inventory.updateProduct(currentIndex, new Product(Integer.parseInt(String.valueOf(productIDField.getText())), productNameField.getText(), Double.parseDouble(productPriceField.getText()), Integer.parseInt(productInvField.getText()), Integer.parseInt(productMinField.getText()), Integer.parseInt(productMaxField.getText())));
+        try {
+            int currentIndex = ControlData.getSelectedProductIndex();
+            Inventory.updateProduct(currentIndex, new Product(Integer.parseInt(String.valueOf(productIDField.getText())), productNameField.getText(), Double.parseDouble(productPriceField.getText()), Integer.parseInt(productInvField.getText()), Integer.parseInt(productMinField.getText()), Integer.parseInt(productMaxField.getText())));
 
-        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1200, 500);
-        stage.setTitle("To Main");
-        stage.setScene(scene);
-        stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1200, 500);
+            stage.setTitle("To Main");
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch (NumberFormatException exception) {
+            System.out.println("Must enter proper input into fields");
+            System.out.println("Exception type: " + exception);
+        }
     }
 
     public void toMain(ActionEvent actionEvent) throws IOException {

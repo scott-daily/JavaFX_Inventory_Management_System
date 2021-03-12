@@ -98,20 +98,27 @@ public class AddPartController implements Initializable {
 
     @FXML
     void onClickSavePart(ActionEvent actionEvent) throws IOException {
-        if (inHouseButton.isSelected()) {
-            Inventory.addPart(new InHouse(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
-            System.out.println("Added a new in-house part");
+
+        try {
+            if (inHouseButton.isSelected()) {
+                Inventory.addPart(new InHouse(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
+                System.out.println("Added a new in-house part");
+            }
+            if (outsourcedButton.isSelected()) {
+                Inventory.addPart(new Outsourced(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
+                System.out.println("Added a new outsourced part");
+            }
+            Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1200, 500);
+            stage.setTitle("To Main");
+            stage.setScene(scene);
+            stage.show();
         }
-        if (outsourcedButton.isSelected()) {
-            Inventory.addPart(new Outsourced(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
-            System.out.println("Added a new outsourced part");
+        catch(NumberFormatException exception) {
+            System.out.println("Must enter proper input into fields");
+            System.out.println("Exception type: " + exception);
         }
-        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1200, 500);
-        stage.setTitle("To Main");
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML
