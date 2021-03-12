@@ -2,6 +2,8 @@ package controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,14 +75,37 @@ public class AddProductController implements Initializable {
     @FXML
     private TableColumn<Part, Double> productPartTableCost;
 
+    @FXML
+    private TextField partSearchField;
+
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
-        allPartsTable.setItems(Inventory.getAllParts());
 
         partTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
         partTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partTableInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partTableCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.getAllParts(), p -> true);
+
+        partSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            filteredParts.setPredicate(part -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                if (part.getName().contains(newValue)) {
+                    return true;
+                } else if (String.valueOf(part.getId()).equals(newValue)) {
+                    return true;
+                }
+                return false;
+            });
+        }));
+
+        SortedList<Part> sortedParts = new SortedList<>(filteredParts);
+        sortedParts.comparatorProperty().bind(allPartsTable.comparatorProperty());
+        allPartsTable.setItems(sortedParts);
     }
 
     ObservableList<Part> newProductPartList = FXCollections.observableArrayList();

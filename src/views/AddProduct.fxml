@@ -83,5 +83,6 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
+      <TextField fx:id="partSearchField" layoutX="881.0" layoutY="68.0" promptText="Search by Part ID or Name" />
     </children>
 </AnchorPane>

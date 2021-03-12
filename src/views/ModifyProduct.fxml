@@ -83,5 +83,6 @@
                 <Font size="14.0" />
             </font>
         </Button>
+      <TextField fx:id="partSearchField" layoutX="879.0" layoutY="69.0" promptText="Search by Part ID or Name" />
     </children>
 </AnchorPane>

@@ -24,6 +24,31 @@ public class Main extends Application {
         InHouse bike_peddles = new InHouse(3, "Bike Pedals", 24.99, 13, 3, 8, 321);
         Outsourced steel_bar = new Outsourced(5, "Steel Bar", 14.99, 24, 2, 10, "Bangkok Metals");
 
+        Product bike = new Product(13,"Bike", 299.99, 5,2,10);
+        Product unicycle = new Product(15,"Unicycle", 199.99, 17,1,20);
+        Product tandem_bike = new Product(17,"Tandem Bike", 599.99, 5,2,5);
+
+        bike.addAssociatedPart(bike_tire);
+        bike.addAssociatedPart(bike_tire);
+        bike.addAssociatedPart(handlebars);
+        bike.addAssociatedPart(steel_bar);
+        bike.addAssociatedPart(steel_bar);
+
+        unicycle.addAssociatedPart(bike_tire);
+        unicycle.addAssociatedPart(steel_bar);
+
+        tandem_bike.addAssociatedPart(bike_tire);
+        tandem_bike.addAssociatedPart(bike_tire);
+        tandem_bike.addAssociatedPart(steel_bar);
+        tandem_bike.addAssociatedPart(steel_bar);
+        tandem_bike.addAssociatedPart(steel_bar);
+        tandem_bike.addAssociatedPart(handlebars);
+
+        Inventory.addProduct(bike);
+        Inventory.addProduct(unicycle);
+        Inventory.addProduct(tandem_bike);
+
+
         Inventory.addPart(bike_tire);
         Inventory.addPart(handlebars);
         Inventory.addPart(bike_peddles);
