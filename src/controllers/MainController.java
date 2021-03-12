@@ -1,5 +1,7 @@
 package controllers;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import models.Inventory;
@@ -52,20 +57,65 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Product, Double> productTableCost;
 
+    @FXML
+    private TextField partSearchField;
+
+    @FXML
+    private TextField productSearchField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        partTable.setItems(Inventory.getAllParts());
+
         partTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
         partTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partTableInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partTableCost.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        productTable.setItems(Inventory.getAllProducts());
         productTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
         productTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         productTableInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productTableCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        FilteredList<Part> filteredParts = new FilteredList<>(Inventory.getAllParts(), p -> true);
+        FilteredList<Product> filteredProducts = new FilteredList<>(Inventory.getAllProducts(), p -> true);
+
+        productSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            filteredProducts.setPredicate(product -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                if (product.getName().contains(newValue)) {
+                    return true;
+                } else if (String.valueOf(product.getId()).contains(newValue)) {
+                    return true;
+                }
+                return false;
+            });
+        }));
+
+        SortedList<Product> sortedProducts = new SortedList<>(filteredProducts);
+        sortedProducts.comparatorProperty().bind(productTable.comparatorProperty());
+        productTable.setItems(sortedProducts);
+
+        partSearchField.textProperty().addListener(((observable, oldValue, newValue) -> {
+            filteredParts.setPredicate(part -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                if (part.getName().contains(newValue)) {
+                    return true;
+                } else if (String.valueOf(part.getId()).equals(newValue)) {
+                    return true;
+                }
+                return false;
+            });
+        }));
+
+        SortedList<Part> sortedParts = new SortedList<>(filteredParts);
+        sortedParts.comparatorProperty().bind(partTable.comparatorProperty());
+        partTable.setItems(sortedParts);
     }
 
     @FXML

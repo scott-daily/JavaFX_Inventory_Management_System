@@ -31,6 +31,7 @@
                   </Label>
                   <Button layoutX="375.0" layoutY="310.0" mnemonicParsing="false" onAction="#toModifyPart" text="Modify" />
                   <Button layoutX="435.0" layoutY="310.0" mnemonicParsing="false" onAction="#deleteSelectedPart" text="Delete" />
+                  <TextField fx:id="partSearchField" layoutX="330.0" layoutY="100.0" promptText="Search by Part ID or Name" />
                </children>
             </Pane>
             <Pane prefHeight="400.0" prefWidth="550.0">
@@ -51,6 +52,7 @@
                   <Button layoutX="280.0" layoutY="310.0" mnemonicParsing="false" onAction="#toAddProduct" text="Add" />
                   <Button layoutX="325.0" layoutY="310.0" mnemonicParsing="false" onAction="#toModifyProduct" text="Modify" />
                   <Button layoutX="385.0" layoutY="310.0" mnemonicParsing="false" onAction="#deleteSelectedProduct" text="Delete" />
+                  <TextField fx:id="productSearchField" layoutX="275.0" layoutY="100.0" promptText="Search by Product ID or Name" />
                </children>
             </Pane>
          </children></HBox>
