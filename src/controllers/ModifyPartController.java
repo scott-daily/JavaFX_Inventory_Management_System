@@ -7,10 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.InHouse;
@@ -59,27 +56,35 @@ public class ModifyPartController implements Initializable {
 
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
-        Part savedPart = ControlData.getSavedPart();
+        try {
+            Part savedPart = ControlData.getSavedPart();
 
-        partNameField.setText(savedPart.getName());
-        partIDField.setText(String.valueOf(savedPart.getId()));
-        partInvField.setText(String.valueOf(savedPart.getStock()));
-        partPriceField.setText(String.valueOf(savedPart.getPrice()));
-        partMaxField.setText(String.valueOf(savedPart.getMax()));
-        partMinField.setText(String.valueOf(savedPart.getMin()));
+            partNameField.setText(savedPart.getName());
+            partIDField.setText(String.valueOf(savedPart.getId()));
+            partInvField.setText(String.valueOf(savedPart.getStock()));
+            partPriceField.setText(String.valueOf(savedPart.getPrice()));
+            partMaxField.setText(String.valueOf(savedPart.getMax()));
+            partMinField.setText(String.valueOf(savedPart.getMin()));
 
-        if (String.valueOf(savedPart.getClass()).equals("class models.InHouse")) {
-            inHouseButton.setSelected(true);
-            InHouse tempPart = (InHouse) savedPart;
-            sourceField.setText(String.valueOf(tempPart.getMachineId()));
-            sourceLabel.setText("Machine ID");
-            sourceLabel.setLayoutX(50);
+            if (String.valueOf(savedPart.getClass()).equals("class models.InHouse")) {
+                inHouseButton.setSelected(true);
+                InHouse tempPart = (InHouse) savedPart;
+                sourceField.setText(String.valueOf(tempPart.getMachineId()));
+                sourceLabel.setText("Machine ID");
+                sourceLabel.setLayoutX(50);
+            }
+            if (String.valueOf(savedPart.getClass()).equals("class models.Outsourced")) {
+                outsourcedButton.setSelected(true);
+                Outsourced tempPart = (Outsourced) savedPart;
+                sourceField.setText(String.valueOf(tempPart.getCompanyName()));
+                sourceLabel.setText("Company Name");
+            }
         }
-        if (String.valueOf(savedPart.getClass()).equals("class models.Outsourced")) {
-            outsourcedButton.setSelected(true);
-            Outsourced tempPart = (Outsourced) savedPart;
-            sourceField.setText(String.valueOf(tempPart.getCompanyName()));
-            sourceLabel.setText("Company Name");
+        catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("A part must be selected for modification.");
+            alert.showAndWait();
         }
     }
 
@@ -97,28 +102,46 @@ public class ModifyPartController implements Initializable {
 
     @FXML
     public void onClickUpdatePart(ActionEvent actionEvent) throws IOException {
+        int min = Integer.parseInt(partMinField.getText());
+        int max = Integer.parseInt(partMaxField.getText());
+        int inventory = Integer.parseInt(partInvField.getText());
 
-        try {
-            int currentIndex = ControlData.getSelectedPartIndex();
+        if (min >= max || inventory < min || inventory > max) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("Min must be less than Max and Inventory must be between these values.");
+            alert.showAndWait();
+        } else {
+            try {
+                if (partNameField.getText().length() == 0) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Warning");
+                    alert.setContentText("The product must have a name.");
+                    alert.showAndWait();
+                } else {
+                    int currentIndex = ControlData.getSelectedPartIndex();
 
-            if (inHouseButton.isSelected()) {
-                Inventory.updatePart(currentIndex, new InHouse(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
-                System.out.println("Updated an in-house part.");
+                    if (inHouseButton.isSelected()) {
+                        Inventory.updatePart(currentIndex, new InHouse(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
+                        System.out.println("Updated an in-house part.");
+                    }
+                    if (outsourcedButton.isSelected()) {
+                        Inventory.updatePart(currentIndex, new Outsourced(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
+                        System.out.println("Updated an outsourced part.");
+                    }
+                    Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+                    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root, 1200, 500);
+                    stage.setTitle("To Main");
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Warning");
+                alert.setContentText("Valid values must be used in all text inputs.");
+                alert.showAndWait();
             }
-            if (outsourcedButton.isSelected()) {
-                Inventory.updatePart(currentIndex, new Outsourced(Integer.parseInt(String.valueOf(partIDField.getText())), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
-                System.out.println("Updated an outsourced part.");
-            }
-            Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1200, 500);
-            stage.setTitle("To Main");
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch (NumberFormatException exception ) {
-            System.out.println("Must enter proper input into fields");
-            System.out.println("Exception type: " + exception);
         }
     }
 

@@ -9,9 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -21,6 +19,7 @@ import models.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -138,39 +137,84 @@ public class MainController implements Initializable {
 
     @FXML
     public void toModifyPart(ActionEvent actionEvent) throws IOException {
-        ControlData.saveSelectedPart(partTable.getSelectionModel().getSelectedItem());
-        ControlData.setSelectedPartIndex(partTable.getSelectionModel().getSelectedIndex());
+        if (partTable.getSelectionModel().getSelectedItem() != null) {
+            ControlData.saveSelectedPart(partTable.getSelectionModel().getSelectedItem());
+            ControlData.setSelectedPartIndex(partTable.getSelectionModel().getSelectedIndex());
 
-        Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyPart.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene addPartScene = new Scene(root, 600, 600);
-        stage.setTitle("Modify Part");
-        stage.setScene(addPartScene);
-        stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyPart.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene addPartScene = new Scene(root, 600, 600);
+            stage.setTitle("Modify Part");
+            stage.setScene(addPartScene);
+            stage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("A part must be selected for modification.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     public void toModifyProduct(ActionEvent actionEvent) throws IOException {
-        ControlData.saveSelectedProduct(productTable.getSelectionModel().getSelectedItem());
-        ControlData.setSelectedProductIndex(productTable.getSelectionModel().getSelectedIndex());
+        if (productTable.getSelectionModel().getSelectedItem() != null) {
+            ControlData.saveSelectedProduct(productTable.getSelectionModel().getSelectedItem());
+            ControlData.setSelectedProductIndex(productTable.getSelectionModel().getSelectedIndex());
 
-        Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyProduct.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene addPartScene = new Scene(root, 1100, 700);
-        stage.setTitle("Modify Product");
-        stage.setScene(addPartScene);
-        stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/views/ModifyProduct.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene addPartScene = new Scene(root, 1100, 700);
+            stage.setTitle("Modify Product");
+            stage.setScene(addPartScene);
+            stage.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("A product must be selected for modification.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     public void deleteSelectedPart(ActionEvent actionEvent) throws IOException {
-        Part selectedPart = partTable.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(selectedPart);
+        if (partTable.getSelectionModel().getSelectedItem() != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the selected part?");
+            Optional<ButtonType> deleteResult = alert.showAndWait();
+
+            if (deleteResult.isPresent() && deleteResult.get() == ButtonType.OK) {
+                Part selectedPart = partTable.getSelectionModel().getSelectedItem();
+                Inventory.deletePart(selectedPart);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("A part must be selected to be deleted.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     public void deleteSelectedProduct(ActionEvent actionEvent) throws IOException {
-        Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(selectedProduct);
+        if (productTable.getSelectionModel().getSelectedItem() != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the selected product?");
+            Optional<ButtonType> deleteResult = alert.showAndWait();
+
+            if (deleteResult.isPresent() && deleteResult.get() == ButtonType.OK) {
+                Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
+                if (selectedProduct.getAllAssociatedParts().isEmpty())
+                    Inventory.deleteProduct(selectedProduct);
+                else {
+                    Alert partAlert = new Alert(Alert.AlertType.ERROR);
+                    partAlert.setTitle("Error Warning");
+                    partAlert.setContentText("All parts associated with a product must be removed first.");
+                    partAlert.showAndWait();
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("A product must be selected to be deleted.");
+            alert.showAndWait();
+        }
     }
 }

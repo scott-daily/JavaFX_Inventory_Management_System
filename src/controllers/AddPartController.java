@@ -11,10 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.InHouse;
@@ -98,26 +95,44 @@ public class AddPartController implements Initializable {
 
     @FXML
     void onClickSavePart(ActionEvent actionEvent) throws IOException {
+        int min = Integer.parseInt(partMinField.getText());
+        int max = Integer.parseInt(partMaxField.getText());
+        int inventory = Integer.parseInt(partInvField.getText());
 
-        try {
-            if (inHouseButton.isSelected()) {
-                Inventory.addPart(new InHouse(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
-                System.out.println("Added a new in-house part");
+        if (min >= max || inventory < min || inventory > max) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("Min must be less than Max and Inventory must be between these values.");
+            alert.showAndWait();
+        } else {
+            try {
+                if (partNameField.getText().length() == 0) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Warning");
+                    alert.setContentText("The product must have a name.");
+                    alert.showAndWait();
+                } else {
+                    if (inHouseButton.isSelected()) {
+                        Inventory.addPart(new InHouse(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), Integer.parseInt(sourceField.getText())));
+                        System.out.println("Added a new in-house part");
+                    }
+                    if (outsourcedButton.isSelected()) {
+                        Inventory.addPart(new Outsourced(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
+                        System.out.println("Added a new outsourced part");
+                    }
+                    Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+                    Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root, 1200, 500);
+                    stage.setTitle("To Main");
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Warning");
+                alert.setContentText("Valid values must be used in all text inputs.");
+                alert.showAndWait();
             }
-            if (outsourcedButton.isSelected()) {
-                Inventory.addPart(new Outsourced(generateUniqueID(), partNameField.getText(), Double.parseDouble(partPriceField.getText()), Integer.parseInt(partInvField.getText()), Integer.parseInt(partMinField.getText()), Integer.parseInt(partMaxField.getText()), sourceField.getText()));
-                System.out.println("Added a new outsourced part");
-            }
-            Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1200, 500);
-            stage.setTitle("To Main");
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch(NumberFormatException exception) {
-            System.out.println("Must enter proper input into fields");
-            System.out.println("Exception type: " + exception);
         }
     }
 

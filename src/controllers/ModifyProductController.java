@@ -9,9 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.Inventory;
@@ -20,6 +18,7 @@ import models.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ModifyProductController implements Initializable {
@@ -120,40 +119,79 @@ public class ModifyProductController implements Initializable {
     }
 
     public void onClickAddPartToProduct(ActionEvent actionEvent) throws IOException {
-        Product savedProduct = ControlData.getSelectedProduct();
+        if (allPartsTable.getSelectionModel().getSelectedItem() != null) {
+            Product savedProduct = ControlData.getSelectedProduct();
 
-        savedProduct.addAssociatedPart(allPartsTable.getSelectionModel().getSelectedItem());
-        productPartsTable.setItems(savedProduct.getAllAssociatedParts());
+            savedProduct.addAssociatedPart(allPartsTable.getSelectionModel().getSelectedItem());
+            productPartsTable.setItems(savedProduct.getAllAssociatedParts());
 
-        productPartTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        productPartTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        productPartTableInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        productPartTableCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+            productPartTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
+            productPartTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            productPartTableInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+            productPartTableCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Warning");
+            alert.setContentText("A part must be selected to be added.");
+            alert.showAndWait();
+        }
     }
 
     public void onClickRemovePart(ActionEvent actionEvent) throws IOException {
-        Product savedProduct = ControlData.getSelectedProduct();
-        Part selectedPart = productPartsTable.getSelectionModel().getSelectedItem();
-        savedProduct.deleteAssociatedPart(selectedPart);
+        if (productPartsTable.getSelectionModel().getSelectedItem() != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove the selected part?");
+            Optional<ButtonType> deleteResult = alert.showAndWait();
+
+            if (deleteResult.isPresent() && deleteResult.get() == ButtonType.OK) {
+                Product savedProduct = ControlData.getSelectedProduct();
+                Part selectedPart = productPartsTable.getSelectionModel().getSelectedItem();
+                savedProduct.deleteAssociatedPart(selectedPart);
+            }
+        } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Warning");
+                alert.setContentText("A part must be selected to be removed.");
+                alert.showAndWait();
+            }
     }
 
     @FXML
     void onClickUpdateProduct(ActionEvent actionEvent) throws IOException {
-        try {
-            int currentIndex = ControlData.getSelectedProductIndex();
-            Inventory.updateProduct(currentIndex, new Product(Integer.parseInt(String.valueOf(productIDField.getText())), productNameField.getText(), Double.parseDouble(productPriceField.getText()), Integer.parseInt(productInvField.getText()), Integer.parseInt(productMinField.getText()), Integer.parseInt(productMaxField.getText())));
+            try {
+                int min = Integer.parseInt(productMinField.getText());
+                int max = Integer.parseInt(productMaxField.getText());
+                int inventory = Integer.parseInt(productInvField.getText());
 
-            Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1200, 500);
-            stage.setTitle("To Main");
-            stage.setScene(scene);
-            stage.show();
-        }
-        catch (NumberFormatException exception) {
-            System.out.println("Must enter proper input into fields");
-            System.out.println("Exception type: " + exception);
-        }
+                if (min >= max || inventory < min || inventory > max) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Warning");
+                    alert.setContentText("Min must be less than Max and Inventory must be between these values.");
+                    alert.showAndWait();
+                }
+                else {
+                    if (productNameField.getText().length() == 0) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error Warning");
+                        alert.setContentText("The product must have a name.");
+                        alert.showAndWait();
+                    } else {
+                        int currentIndex = ControlData.getSelectedProductIndex();
+                        Inventory.updateProduct(currentIndex, new Product(Integer.parseInt(String.valueOf(productIDField.getText())), productNameField.getText(), Double.parseDouble(productPriceField.getText()), Integer.parseInt(productInvField.getText()), Integer.parseInt(productMinField.getText()), Integer.parseInt(productMaxField.getText())));
+
+                        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+                        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                        Scene scene = new Scene(root, 1200, 500);
+                        stage.setTitle("To Main");
+                        stage.setScene(scene);
+                        stage.show();
+                    }
+                }
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Warning");
+                alert.setContentText("Valid values must be used in all text inputs.");
+                alert.showAndWait();
+            }
     }
 
     public void toMain(ActionEvent actionEvent) throws IOException {
