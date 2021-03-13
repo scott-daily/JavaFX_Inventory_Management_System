@@ -124,7 +124,7 @@ public class AddPartController implements Initializable {
     }
 
     /**
-     * Stores used Part ID's so that all created are unique.
+     * Stores used Part ID's so that new Parts have unique ID's.
      */
     private ArrayList<Integer> usedIdArray = new ArrayList<>();
 
