@@ -22,44 +22,88 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The MainController is used to handle the Main view's actions.
+ */
 public class MainController implements Initializable {
 
+    /**
+     * TableView that holds a view of all Parts in Inventory.
+     */
     @FXML
     private TableView<Part> partTable;
 
+    /**
+     * TableColumn that holds a Part's ID.
+     */
     @FXML
     private TableColumn<Part, Integer> partTableID;
 
+    /**
+     * TableColumn that hold's a Part's name.
+     */
     @FXML
     private TableColumn<Part, String> partTableName;
 
+    /**
+     * TableColumn that holds a Part's inventory amount.
+     */
     @FXML
     private TableColumn<Part, Integer> partTableInv;
 
+    /**
+     * TableColumn that holds a Part's cost.
+     */
     @FXML
     private TableColumn<Part, Double> partTableCost;
-
+    /**
+     * TableView that holds all Products in Inventory.
+     */
     @FXML
     private TableView<Product> productTable;
 
+    /**
+     * TableColumn that holds a Product's ID.
+     */
     @FXML
     private TableColumn<Product, Integer> productTableID;
 
+    /**
+     * TableColumn that holds a Product's name.
+     */
     @FXML
     private TableColumn<Product, String> productTableName;
 
+    /**
+     * TableColumn that holds a Part's inventory amount.
+     */
     @FXML
     private TableColumn<Product, Integer> productTableInv;
 
+    /**
+     * TableColumn that holds a Product's cost.
+     */
     @FXML
     private TableColumn<Product, Double> productTableCost;
 
+    /**
+     * TextField that holds the string to search the Part table.
+     */
     @FXML
     private TextField partSearchField;
 
+    /**
+     * TextField that holds the string to search the Product table.
+     */
     @FXML
     private TextField productSearchField;
 
+    /**
+     * Initializes the Part TableView and Product TableView with all Parts and Products in Inventory.  Sets listeners on the both search fields to wait for user
+     * input to filter the list based on the input.
+     * @param url The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -115,6 +159,11 @@ public class MainController implements Initializable {
         partTable.setItems(sortedParts);
     }
 
+    /**
+     * Transitions to the Add Part View to create a new Part.
+     * @param actionEvent Occurs when button to add a new Part is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     public void toAddPart(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/AddPart.fxml"));
@@ -125,6 +174,11 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Transitions to the Add Product View to create a new Product.
+     * @param actionEvent Occurs when button to add a new Product is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     public void toAddProduct(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/AddProduct.fxml"));
@@ -135,6 +189,11 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Transitions to the Modify Part View to alter an existing Part.
+     * @param actionEvent Occurs when button to modify a Part is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     public void toModifyPart(ActionEvent actionEvent) throws IOException {
         if (partTable.getSelectionModel().getSelectedItem() != null) {
@@ -155,6 +214,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Transitions to the Modify Product View to alter an existing Product.
+     * @param actionEvent Occurs when button to modify a Product is clicked.
+     * @throws IOException Throws if error occurs during FXML loading.
+     */
     @FXML
     public void toModifyProduct(ActionEvent actionEvent) throws IOException {
         if (productTable.getSelectionModel().getSelectedItem() != null) {
@@ -175,8 +239,12 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     *  Deletes the selected Part from the Inventory Part list.
+     * @param actionEvent Occurs when delete Part button is clicked.
+     */
     @FXML
-    public void deleteSelectedPart(ActionEvent actionEvent) throws IOException {
+    public void deleteSelectedPart(ActionEvent actionEvent) {
         if (partTable.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the selected part?");
             Optional<ButtonType> deleteResult = alert.showAndWait();
@@ -193,8 +261,12 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Deletes the selected Product from the Inventory Product list.
+     * @param actionEvent Occurs when a Product is selected and the delete Product button is clicked.
+     */
     @FXML
-    public void deleteSelectedProduct(ActionEvent actionEvent) throws IOException {
+    public void deleteSelectedProduct(ActionEvent actionEvent) {
         if (productTable.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the selected product?");
             Optional<ButtonType> deleteResult = alert.showAndWait();
