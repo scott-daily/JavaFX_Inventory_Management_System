@@ -4,7 +4,7 @@ import models.Part;
 import models.Product;
 
 /**
- * The ControlData class exists to easily transfer data between view controllers.
+ * The ControlData class exists to facilitate data transfers between view controllers.
  */
 public class ControlData {
 
