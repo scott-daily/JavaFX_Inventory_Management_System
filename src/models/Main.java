@@ -6,8 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main class that loads the main inventory FXML screen.
+ */
 public class Main extends Application {
 
+    /**
+     * Loads the main.fxml view into the FXML Loader and displays the scene.
+     * @param primaryStage The Stage to start.
+     * @throws Exception Throws if view cannot be loaded.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
@@ -16,7 +24,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Main method launches the application and instantiates Part and Product Objects for testing.
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         // public InHouse(int id, String name, double price, int stock, int min, int max, int machineId)
         InHouse bike_tire = new InHouse(1, "Bike Tire", 4.23, 3, 1, 5, 123);

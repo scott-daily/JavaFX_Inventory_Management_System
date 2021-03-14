@@ -1,7 +1,7 @@
 package models;
 
 /**
- *
+ * Abstract representation of a Part and associated methods.
  * @author Scott Daily
  */
 public abstract class Part {
@@ -12,6 +12,15 @@ public abstract class Part {
     private int min;
     private int max;
 
+    /**
+     * Constructor to generate a new Part object.
+     * @param id The ID of the Part.
+     * @param name The name of the Part.
+     * @param price The price of the Part.
+     * @param stock The current inventory of the Part.
+     * @param min The minimum allowed in inventory.
+     * @param max The maximum allowed in inventory.
+     */
     public Part(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;

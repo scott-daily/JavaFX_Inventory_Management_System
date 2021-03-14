@@ -3,6 +3,9 @@ package models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Class that represents a Product object and associated methods.
+ */
 public class Product {
     private int id;
     private String name;
@@ -12,6 +15,15 @@ public class Product {
     private int max;
     private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
+    /**
+     * Product object constructor method.
+     * @param id The ID of the Product.
+     * @param name The name of the Product.
+     * @param price The price of the Product.
+     * @param stock The current inventory of the Product.
+     * @param min The minimum allowed in inventory.
+     * @param max The maximum allowed in inventory.
+     */
     public Product(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;
@@ -21,14 +33,26 @@ public class Product {
         this.max = max;
     }
 
+    /**
+     * Gets all the Parts associated with the Product in the form of an ObservableList.
+     * @return An ObservableList containing Part objects.
+     */
     public ObservableList<Part> getAllAssociatedParts() {
         return associatedParts;
     }
 
+    /**
+     * Adds a new Part to the associatedPart's list.
+     * @param part The Part to be added.
+     */
     public void addAssociatedPart(Part part) {
         associatedParts.add(part);
     }
 
+    /**
+     * Deletes a Part from the associatedPart's list.
+     * @param part The Part to be deleted.
+     */
     public void deleteAssociatedPart(Part part) {
         associatedParts.remove(part);
     }
