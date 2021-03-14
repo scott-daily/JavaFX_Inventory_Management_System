@@ -34,12 +34,6 @@ public class AddPartController implements Initializable {
     private RadioButton inHouseButton;
 
     /**
-     * Radio button that indicates a part is in-house.
-     */
-    @FXML
-    private ToggleGroup inOrOutTG;
-
-    /**
      * Radio button that indicates a part is outsourced.
      */
     @FXML

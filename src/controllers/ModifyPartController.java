@@ -19,41 +19,76 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The ModifyProductController class is used to handle the Modify Product View's actions.
+ */
 public class ModifyPartController implements Initializable {
 
-    @FXML
-    private ToggleGroup inOrOutTG;
-
-    @FXML
-    private TextField partIDField;
-
-    @FXML
-    private TextField partNameField;
-
-    @FXML
-    private TextField partInvField;
-
-    @FXML
-    private TextField partPriceField;
-
-    @FXML
-    private TextField partMaxField;
-
-    @FXML
-    private TextField sourceField;
-
-    @FXML
-    private TextField partMinField;
-
+    /**
+     * Radio button that indicates a part is in-house.
+     */
     @FXML
     private RadioButton inHouseButton;
 
+    /**
+     * Radio button that indicates a part is outsourced.
+     */
     @FXML
     private RadioButton outsourcedButton;
 
+    /**
+     * Text field that contains a Part ID.
+     */
+    @FXML
+    private TextField partIDField;
+
+    /**
+     * Text field that contains a Part Name.
+     */
+    @FXML
+    private TextField partNameField;
+
+    /**
+     * Text field that contains a Part's current inventory.
+     */
+    @FXML
+    private TextField partInvField;
+
+    /**
+     * Text field that contains a Part's price.
+     */
+    @FXML
+    private TextField partPriceField;
+
+    /**
+     * Text field that contains a Part's maximum allowed inventory level.
+     */
+    @FXML
+    private TextField partMaxField;
+
+    /**
+     * Text field that contains a Part's minimum allowed inventory level.
+     */
+    @FXML
+    private TextField partMinField;
+
+    /**
+     * Label that displays the part's source.
+     */
     @FXML
     private Label sourceLabel;
 
+    /**
+     *  Text field that displays the type of source a part has.
+     */
+    @FXML
+    private TextField sourceField;
+
+    /**
+     * Initializes the Modify Product Form's text fields and radio buttons with the selected Part's stored data attributes.
+     * @param url The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object.
+     */
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
         try {
@@ -88,18 +123,31 @@ public class ModifyPartController implements Initializable {
         }
     }
 
+    /**
+     * Sets the text to "Company Name" if part is outsourced.
+     * @param event Event occurs when the outsourced radio button is selected.
+     */
     @FXML
     void setTextCompanyName(MouseEvent event) {
         sourceLabel.setText("Company Name");
         sourceLabel.setLayoutX(25);
     }
 
+    /**
+     * Sets the text to "Machine ID" if part is in-house.
+     * @param event Event occurs when the In-House radio button is selected.
+     */
     @FXML
     void setTextMachineID(MouseEvent event) {
         sourceLabel.setText("Machine ID");
         sourceLabel.setLayoutX(50);
     }
 
+    /**
+     * Updates the selected Part and adds it to the Inventory Parts list.
+     * @param actionEvent Event occurs when a Part is updated.
+     * @throws IOException Exception thrown if input values are invalid.
+     */
     @FXML
     public void onClickUpdatePart(ActionEvent actionEvent) throws IOException {
         int min = Integer.parseInt(partMinField.getText());
@@ -145,6 +193,11 @@ public class ModifyPartController implements Initializable {
         }
     }
 
+    /**
+     * Sets the main view scene to the stage.
+     * @param actionEvent Event occurs when cancel button is clicked.
+     * @throws IOException Exception thrown if error occurs during FXML view loading.
+     */
     public void toMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
