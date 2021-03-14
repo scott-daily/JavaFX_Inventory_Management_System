@@ -182,7 +182,7 @@ public class ModifyProductController implements Initializable {
      * Adds the currently selected Part to the Product's associated Part's list.
      * @param actionEvent Occurs when add Part button is clicked.
      */
-    public void onClickAddPartToProduct(ActionEvent actionEvent) throws IOException {
+    public void onClickAddPartToProduct(ActionEvent actionEvent) {
         if (allPartsTable.getSelectionModel().getSelectedItem() != null) {
             Product savedProduct = ControlData.getSelectedProduct();
 
@@ -205,7 +205,7 @@ public class ModifyProductController implements Initializable {
      * Removes a Part from the Product's associated Part's list.
      * @param actionEvent Occurs when Product Part remove button is clicked.
      */
-    public void onClickRemovePart(ActionEvent actionEvent) throws IOException {
+    public void onClickRemovePart(ActionEvent actionEvent) {
         if (productPartsTable.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove the selected part?");
             Optional<ButtonType> deleteResult = alert.showAndWait();

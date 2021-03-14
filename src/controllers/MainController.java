@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.application.Platform;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import models.Inventory;
@@ -99,6 +101,18 @@ public class MainController implements Initializable {
     private TextField productSearchField;
 
     /**
+     * Left Pane that css border is applied to.
+     */
+    @FXML
+    private Pane leftBorderPane;
+
+    /**
+     * Right Pane that css border is applied to.
+     */
+    @FXML
+    private Pane rightBorderPane;
+
+    /**
      * Initializes the Part TableView and Product TableView with all Parts and Products in Inventory.  Sets listeners on the both search fields to wait for user
      * input to filter the list based on the input.
      * @param url The location used to resolve relative paths for the root object.
@@ -106,6 +120,9 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        leftBorderPane.setStyle("-fx-border-color: black;"+"-fx-border-radius: 10px;");
+        rightBorderPane.setStyle("-fx-border-color: black;"+"-fx-border-radius: 10px;");
 
         partTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
         partTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -287,6 +304,20 @@ public class MainController implements Initializable {
             alert.setTitle("Error Warning");
             alert.setContentText("A product must be selected to be deleted.");
             alert.showAndWait();
+        }
+    }
+
+    /**
+     *  Exits the program when exit button is clicked.
+     * @param actionEvent Occurs when the exit button is clicked.
+     */
+    @FXML
+    public void onClickExitProgram(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit the program?");
+        Optional<ButtonType> exitAnswer = alert.showAndWait();
+
+        if (exitAnswer.isPresent() && exitAnswer.get() == ButtonType.OK) {
+            Platform.exit();
         }
     }
 }

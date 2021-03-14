@@ -53,7 +53,7 @@ public class Inventory {
     /**
      * Updates a Part by replacing the existing Part.
      * @param index The index of the Part to replace.
-     * @param selectedPart The updated Part object.
+     * @param updatedPart The updated Part object.
      */
     public static void updatePart(int index, Part updatedPart) {
         allParts.set(index, updatedPart);
@@ -62,7 +62,7 @@ public class Inventory {
     /**
      * Updates a Product by replacing the existing Product.
      * @param index The index of the Product to replace.
-     * @param selectedPart The updated Product object.
+     * @param updatedProduct The updated Product object.
      */
     public static void updateProduct(int index, Product updatedProduct) {
         allProducts.set(index, updatedProduct);
