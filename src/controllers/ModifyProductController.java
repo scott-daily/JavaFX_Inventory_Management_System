@@ -21,59 +21,119 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The ModifyProductController class is used to handle the Modify Product View's actions.
+ */
 public class ModifyProductController implements Initializable {
 
+    /**
+     * TableView to hold Part data
+     */
     @FXML
     private TableView<Part> allPartsTable;
 
+    /**
+     * TableView Column that holds a Part ID.
+     */
     @FXML
     private TableColumn<Part, Integer> partTableID;
 
+    /**
+     * Tableview Column that holds a Part Name.
+     */
     @FXML
     private TableColumn<Part, String> partTableName;
 
+    /**
+     * Tableview Column that holds a Part's inventory amount.
+     */
     @FXML
-    private TableColumn<Part, Integer> partTableInv;
+    private TableColumn<Part, Inventory> partTableInv;
 
+    /**
+     * Tableview Column that holds a Part's cost.
+     */
     @FXML
     private TableColumn<Part, Double> partTableCost;
 
+    /**
+     *  Tableview field that holds a Product ID.
+     */
     @FXML
     private TextField productIDField;
 
+    /**
+     * TextField that holds a Product's name.
+     */
     @FXML
     private TextField productNameField;
 
+    /**
+     * TextField that holds a Product's inventory amount.
+     */
     @FXML
     private TextField productInvField;
 
+    /**
+     * TextField that holds a Product's price.
+     */
     @FXML
     private TextField productPriceField;
 
+    /**
+     * TextField that holds a Product's maximum allowed quantity.
+     */
     @FXML
     private TextField productMaxField;
 
+    /**
+     * TextField that holds a Product's minimum allowed quantity.
+     */
     @FXML
     private TextField productMinField;
 
+    /**
+     * TableView that holds a Product's associated Parts.
+     */
     @FXML
     private TableView<Part> productPartsTable;
 
+    /**
+     * TableColumn that holds a Part's ID.
+     */
     @FXML
     private TableColumn<Part, Integer> productPartTableID;
 
+    /**
+     * TableColumn that holds a Part's Name.
+     */
     @FXML
     private TableColumn<Part, String> productPartTableName;
 
+    /**
+     * Tableview Column that holds a Part's inventory amount.
+     */
     @FXML
     private TableColumn<Part, Integer> productPartTableInv;
 
+    /**
+     * TableView Column that holds a Part's cost.
+     */
     @FXML
     private TableColumn<Part, Double> productPartTableCost;
 
+    /**
+     * TextField that holds the string to search the TableView holding all Parts in Inventory.
+     */
     @FXML
     private TextField partSearchField;
 
+    /**
+     * Initializes the Modify Part TableView with all Parts in Inventory and initializes the selected Product's associated Part's table.
+     * Sets a listener on the search field to wait for user input to filter the Parts list based on the input.
+     * @param url The location used to resolve relative paths for the root object.
+     * @param resourceBundle The resources used to localize the root object.
+     */
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
         Product savedProduct = ControlData.getSelectedProduct();
@@ -118,6 +178,10 @@ public class ModifyProductController implements Initializable {
         productMinField.setText(String.valueOf(savedProduct.getMin()));
     }
 
+    /**
+     * Adds the currently selected Part to the Product's associated Part's list.
+     * @param actionEvent Occurs when add Part button is clicked.
+     */
     public void onClickAddPartToProduct(ActionEvent actionEvent) throws IOException {
         if (allPartsTable.getSelectionModel().getSelectedItem() != null) {
             Product savedProduct = ControlData.getSelectedProduct();
@@ -137,6 +201,10 @@ public class ModifyProductController implements Initializable {
         }
     }
 
+    /**
+     * Removes a Part from the Product's associated Part's list.
+     * @param actionEvent Occurs when Product Part remove button is clicked.
+     */
     public void onClickRemovePart(ActionEvent actionEvent) throws IOException {
         if (productPartsTable.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove the selected part?");
@@ -155,6 +223,11 @@ public class ModifyProductController implements Initializable {
             }
     }
 
+    /**
+     * Saves an updated Product in the Inventory's Product list.
+     * @param actionEvent Occurs when save Product button is clicked.
+     * @throws IOException Thrown when Product creation field values are invalid.
+     */
     @FXML
     void onClickUpdateProduct(ActionEvent actionEvent) throws IOException {
             try {
@@ -194,6 +267,11 @@ public class ModifyProductController implements Initializable {
             }
     }
 
+    /**
+     * Sets the main view scene to the stage.
+     * @param actionEvent Event occurs when cancel button is clicked.
+     * @throws IOException Exception thrown if error occurs during FXML view loading.
+     */
     public void toMain(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
