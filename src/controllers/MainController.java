@@ -123,6 +123,8 @@ public class MainController implements Initializable {
 
         leftBorderPane.setStyle("-fx-border-color: black;"+"-fx-border-radius: 10px;");
         rightBorderPane.setStyle("-fx-border-color: black;"+"-fx-border-radius: 10px;");
+        leftBorderPane.setPickOnBounds(false);
+        rightBorderPane.setPickOnBounds(false);
 
         partTableID.setCellValueFactory(new PropertyValueFactory<>("id"));
         partTableName.setCellValueFactory(new PropertyValueFactory<>("name"));

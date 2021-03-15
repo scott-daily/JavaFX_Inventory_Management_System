@@ -169,6 +169,12 @@ public class AddProductController implements Initializable {
      */
     ObservableList<Part> newProductPartList = FXCollections.observableArrayList();
 
+    /* DETAILED DESCRIPTION OF ERROR AND HOW IT WAS FIXED:
+    The Add Part button to put a part from the allPart's list into the Product's associatedParts list was incorrectly adding
+    blank spaces to the associatedPart's TableView if a Part was not selected before the add button was clicked.  This was
+    fixed by adding an if-else block to ensure that a Part is selected before it is allowed to be added.  If a part is not
+    selected, then a warning is displayed to the user.
+     */
     /**
      * Adds the currently selected Part to the Product's associated Part's list.
      * @param actionEvent Occurs when add Part button is clicked.
